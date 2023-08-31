@@ -14,6 +14,8 @@ urlpatterns = [
     path("accounts/confirm-email/", RedirectView.as_view(pattern_name="timeline:index")),
     re_path(r"^accounts/confirm-email/[^/]+/", RedirectView.as_view(pattern_name="timeline:index"), kwargs=None),
     path("accounts/", include("allauth.urls")),
+    path("accounts/", include("accounts.urls")),
 ]
 
-urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
