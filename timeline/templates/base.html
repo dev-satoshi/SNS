@@ -1,4 +1,6 @@
 {% load static %}
+{% load bootstrap4 %}
+
 <!doctype html>
 <html lang="ja">
 <head>
@@ -7,23 +9,33 @@
   <link rel="stylesheet" href="{% static 'css/style.css' %}">
   <title>{% block title %}{% endblock %}</title>
 </head>
+
 <body>
   <nav class="navbar navbar-expand-md navbar-dark bg-info fixed-top">
-    <a class="navbar-brand" href="#">POSII</a>
+    <a class="navbar-brand" href="{% url 'timeline:index' %}">POSII</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarsExampleDefault">
       <ul class="navbar-nav mr-auto">
+        {% if user.is_authenticated %}
         <li class="nav-item">
-          <a class="nav-link" href="#">タイムライン</a>
+          <a class="nav-link" href="{% url 'timeline:index' %}">タイムライン</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="#">プロフィール</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">ログアウト</a>
+          <a class="nav-link" href="{% url 'account_logout' %}">ログアウト</a>
         </li>
+        {% else %}
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'account_login' %}">ログイン</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'account_signup' %}">ユーザー登録</a>
+        </li>
+        {% endif %}
       </ul>
     </div>
   </nav>
